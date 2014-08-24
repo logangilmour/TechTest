@@ -5,6 +5,7 @@ public class Walk : MonoBehaviour {
 	public static Walk instance { get; private set; }
 	private float cooldown = 0.05f;
 	private float left = 1;
+	public AudioSource fireball;
 
 	public Transform missile;
 
@@ -35,6 +36,7 @@ public class Walk : MonoBehaviour {
 						cooldown = 0.2f;
 			left*=-1;
 			Instantiate(missile,transform.position+this.transform.rotation*Vector3.left*left*2,this.transform.rotation);
+			fireball.Play();
 				
 				} else {
 						cooldown -= Time.deltaTime;

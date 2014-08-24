@@ -8,11 +8,6 @@ Properties {
 	_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
 	_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
 	_Dist ("Distance", Float) = 0
-    _FogColor ("Fog Color", Color) = (0.5, 0.5, 0.5, 1)
-    _HighColor ("Highlight Color", Color) = (0.5, 0.5, 0.5, 1)
-    _LowColor ("Lowlight Color", Color) = (0.5, 0.5, 0.5, 1)
-    _LitColor ("Lit Color", Color) = (0.5, 0.5, 0.5, 1)
-
 }
 SubShader {
 	Tags {"Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
@@ -42,10 +37,6 @@ SubShader {
 			float4 _MainTex_ST;
 			fixed _Cutoff;
 			fixed _Dist;
-			fixed4 _FogColor;
-			fixed4 _HighColor;
-			fixed4 _LowColor;
-			fixed4 _LitColor;
 
 			v2f vert (appdata_t v)
 			{
@@ -57,12 +48,17 @@ SubShader {
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
+				float4 _FogColor = {31f/255f,31f/255f,42f/255f,1f};
+				float4 _HighColor = {168f/255f,34f/255f,30f/255f,1f};
+				float4 _LowColor = {73f/255f,47f/255f,67f/255f,1f};
+				float4 _LitColor = {255f/255f,252f/255f,218f/255f,1f};
+				float4 z = {0f,0f,0f,1f};
 				
 				fixed4 col = tex2D(_MainTex, i.texcoord);
 				float fogFactor = (30 - _Dist)/(30 - 1);
 				fogFactor = clamp( fogFactor, 0.0, 1.0 );
 				clip(col.a - _Cutoff);
-				float4 h = mix(_FogColor,_HighColor*col.r,fogFactor);
+				float4 h = mix(z,_HighColor*col.r,fogFactor);
 				float4 g = _LitColor*col.g;
 				fogFactor = (60 - _Dist)/(60 - 1);
 				fogFactor = clamp( fogFactor, 0.0, 1.0 );

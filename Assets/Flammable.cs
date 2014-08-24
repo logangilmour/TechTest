@@ -22,8 +22,9 @@ public class Flammable : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		this.renderer.material.SetFloat ("_Dist", Vector3.Distance(gameObject.transform.position,Walk.instance.gameObject.transform.position));
-
+		foreach (Material material in this.renderer.materials){
+			material.SetFloat ("_Dist", Vector3.Distance(gameObject.transform.position,Walk.instance.gameObject.transform.position));
+		}
 		if (!burning) {
 			foreach (KeyValuePair<Flammable,float> n in neighbours) {
 				if (n.Key.burning) {

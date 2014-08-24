@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Fire : MonoBehaviour {
 	// Use this for initialization
-	bool stopped = false;
 	float life = 3f;
+
 	void Start () {
+		this.rigidbody.AddRelativeForce (Vector3.forward * -5000);
 	}
 	
 	// Update is called once per frame
@@ -15,12 +16,10 @@ public class Fire : MonoBehaviour {
 						Destroy (this.gameObject);
 				}	
 		life -= Time.deltaTime;
-		if(stopped)		this.rigidbody.velocity = Vector3.zero;
 	}
 
 	void OnTriggerEnter (Collider other) {
 		this.rigidbody.velocity = Vector3.zero;
-		stopped = true;
 		this.particleSystem.Stop ();
 	}
 }
