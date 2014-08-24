@@ -49,9 +49,9 @@ SubShader {
 			fixed4 frag (v2f i) : SV_Target
 			{
 				float4 _FogColor = {31f/255f,31f/255f,42f/255f,1f};
-				float4 _HighColor = {168f/255f,34f/255f,30f/255f,1f};
-				float4 _LowColor = {73f/255f,47f/255f,67f/255f,1f};
-				float4 _LitColor = {255f/255f,252f/255f,218f/255f,1f};
+				float4 _LowColor = {168f/255f,34f/255f,30f/255f,1f};
+				float4 _HighColor = {73f/255f,47f/255f,67f/255f,1f};
+				float4 _LitColor = {234f/255f,126f/255f,65f/255f,1f};
 				float4 z = {0f,0f,0f,1f};
 				
 				fixed4 col = tex2D(_MainTex, i.texcoord);
@@ -60,15 +60,19 @@ SubShader {
 				clip(col.a - _Cutoff);
 				float4 h = mix(z,_HighColor*col.r,fogFactor);
 				float4 g = _LitColor*col.g;
-				fogFactor = (60 - _Dist)/(60 - 1);
+				fogFactor = (120 - _Dist)/(120 - 30);
 				fogFactor = clamp( fogFactor, 0.0, 1.0 );
-				float4 l = mix(_FogColor,_LowColor*col.b,fogFactor);
-				
+				float4 l = mix(z,_LowColor*col.b,fogFactor);
+				float c = 0f;
+				if(_Cutoff>0.05f){
+					c = (float) _Cutoff/0.8;
+					clip(-col.g);
+				}
 
 
         //if you inverse color in glsl mix function you have to
         //put 1.0 - fogFactor
-    			return clamp(l+h+g,0.0,1.0);
+    			return mix(clamp(_FogColor+l+h+g,0.0,1.0),_FogColor,c);
 			}
 		ENDCG
 	}

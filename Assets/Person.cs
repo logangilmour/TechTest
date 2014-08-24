@@ -6,6 +6,9 @@ public class Person : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		startRot = transform.rotation;
+		foreach (Material material in this.renderer.materials){
+			material.SetFloat ("_Cutoff", 0.01f);
+		}
 	}
 	
 	// Update is called once per frame

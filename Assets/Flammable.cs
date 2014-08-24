@@ -12,8 +12,11 @@ public class Flammable : MonoBehaviour {
 
 	void Start () {
 		FireManager.instance.Add (this);
+		foreach (Material material in this.renderer.materials){
+			material.SetFloat ("_Cutoff", burned);
+		}
 	}
-
+	
 	public void AddNeighbour(Flammable other){
 		float dist = Vector3.Distance (gameObject.transform.position, other.gameObject.transform.position);
 
@@ -36,10 +39,11 @@ public class Flammable : MonoBehaviour {
 			}	
 		} else {
 			if(!emitting)StartFire();
-			this.renderer.material.SetFloat ("_Cutoff", burned);
-
+			foreach (Material material in this.renderer.materials){
+				material.SetFloat ("_Cutoff", burned);
+			}
 			burned += Time.deltaTime * 0.1f;
-			if (burned > 0.99f) burned = 0.99f;
+			if (burned > 0.8f) burned = 0.8f;
 		}
 	}
 
