@@ -18,8 +18,9 @@ public class Flammable : MonoBehaviour {
 	}
 	
 	public void AddNeighbour(Flammable other){
-		float dist = Vector3.Distance (gameObject.transform.position, other.gameObject.transform.position);
-
+		Vector3 p1 = gameObject.collider.ClosestPointOnBounds (other.transform.position);
+		Vector3 p2 = other.collider.ClosestPointOnBounds (transform.position);
+		float dist = Vector3.Distance (p1,p2);
 		if(dist<25)neighbours.Add (other, 1/(dist*dist));
 		}		
 

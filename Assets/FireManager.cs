@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class FireManager : MonoBehaviour {
 
 	public static FireManager instance { get; private set; }
-	private List<Flammable> fuel;
+	public List<Flammable> fuel;
 
 	
 	//When the object awakens, we assign the static variable
