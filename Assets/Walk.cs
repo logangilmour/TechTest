@@ -9,6 +9,7 @@ public class Walk : MonoBehaviour {
 	public Transform rightsound;
 
 	public Transform missile;
+	public bool fired = false;
 
 
 	void Awake(){
@@ -34,6 +35,7 @@ public class Walk : MonoBehaviour {
 
 	void Fire(){
 		if (Input.GetMouseButton(0) && cooldown <= 0) {
+			fired = true;
 						cooldown = 0.2f;
 			left*=-1;
 			Instantiate(missile,transform.position+this.transform.rotation*Vector3.left*left*2,this.transform.rotation);
@@ -44,5 +46,10 @@ public class Walk : MonoBehaviour {
 						cooldown -= Time.deltaTime;
 				}	
 
+	}
+	void OnCollisionEnter (Collision c) {
+		if (c.collider.CompareTag ("Burning") || c.collider.CompareTag ("Enemy")) {
+			Game.instance.over=true;
+		}
 	}
 }

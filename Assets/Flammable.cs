@@ -61,4 +61,9 @@ public class Flammable : MonoBehaviour {
 			StartFire();
 		}
 	}
+	void OnCollisionEnter (Collision c) {
+		if (c.collider.CompareTag ("Burning")) {
+			StartFire();
+		}
+	}
 }
