@@ -94,5 +94,6 @@ public class Person : MonoBehaviour {
 			cooldown = 0.25f;
 						myvel = transform.TransformDirection (new Vector3 (0, 1f-Mathf.Round(Random.value)*2f, 1f-Mathf.Round (Random.value)*2f).normalized * (1000 * Time.deltaTime));
 				}
+
 	}
 }
