@@ -28,7 +28,7 @@ public class Game : MonoBehaviour {
 	
 		}
 		Debug.Log (temp + ", " + localtemp);
-		temp += (localtemp - temp)/100;
+		temp += (localtemp - temp)/500;
 		Rect newSize = new Rect(0,0, Screen.width, Screen.height); //Pixel Inset - Rect (x, y, width, height)
 		guiObject.guiTexture.pixelInset = newSize;
 		Color c = guiObject.guiTexture.color;

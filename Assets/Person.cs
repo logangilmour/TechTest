@@ -17,5 +17,7 @@ public class Person : MonoBehaviour {
 		transform.LookAt (Walk.instance.transform);
 		transform.rotation = Quaternion.Euler (new Vector3(-90,transform.rotation.eulerAngles.y,0));
 
+		var vel = 1000 * Time.deltaTime;
+		transform.rigidbody.velocity = transform.TransformDirection (Vector3.down*vel);
 	}
 }
